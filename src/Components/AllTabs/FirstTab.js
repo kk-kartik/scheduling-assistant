@@ -50,11 +50,23 @@ const FirstTab = () => {
     selectedSlot.setAttribute("disabled", "1");
     console.log(slots);
     console.log(passToDB);
+    var res;
+    fetch("http://timetable-iitg.great-site.net/fetch.php?sl="+passToDB, {  credentials: "include",
+    headers: {
+      "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+   },
+    method: "GET"})
+    .then(function(response) { var x=response.json().then(data =>{ res=data; console.log(res);})
+    })
+    .catch(function(error) {
+    console.log(error);
+    });
+    console.log(res);
   }
   const clearAll = () => {
     var temp = document.getElementsByTagName("option");
     for (var i = 0; i < 24; i++) {
-      if (temp[i] != undefined && temp[i].disabled) {
+      if (temp[i] !== undefined && temp[i].disabled) {
         temp[i].removeAttribute("disabled");
       }
       slots[slotMap[i]] = "";
